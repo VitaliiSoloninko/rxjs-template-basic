@@ -11,3 +11,21 @@ const people = [
 	{ name: 'Galina', age: 68 },
 	{ name: 'Tanya', age: 70 },
 ]
+
+btn.addEventListener('click', () => {
+	btn.disabled = true
+	let i = 0
+	const canDrive = []
+	const interval = setInterval(() => {
+		if (people[i]) {
+			if (people[i].age >= 18) {
+				canDrive.push(people[i].name)
+			}
+			display.textContent = canDrive.join(' ')
+			i++
+		} else {
+			clearInterval(interval)
+			btn.disabled = false
+		}
+	}, 1000)
+})
