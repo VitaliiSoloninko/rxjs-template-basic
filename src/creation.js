@@ -15,7 +15,7 @@ import { Observable } from 'rxjs'
 // 	console.log(val)
 // })
 
-// =================== Observable - наблюдаемый
+// =================== Observable - наблюдаемый theory
 // Methods
 // next - post new value
 // error - work with method error
@@ -28,6 +28,8 @@ import { Observable } from 'rxjs'
 // })
 // stream$.subscribe(val => console.log('Val:', val))
 
+// =================== Observable own new stream
+
 const stream$ = new Observable(observer => {
 	observer.next('First value')
 	setTimeout(() => observer.next('After 1000 ms'), 1000)
@@ -39,8 +41,24 @@ const stream$ = new Observable(observer => {
 	setTimeout(() => observer.next('After 4000 ms'), 4000)
 })
 
-stream$.subscribe(
-	val => console.log('Val:', val), // function val work with method next
-	err => console.log(err), // function err work with method error
-	() => console.log('Complete') // function complete - end of stream
-)
+// =================== Observable subscribe to stream
+
+// ---------- 1 variant
+// stream$.subscribe(
+// 	val => console.log('Val:', val), // function val work with method next
+// 	err => console.log(err), // function err work with method error
+// 	() => console.log('Complete') // function complete - end of stream
+// )
+
+// ---------- 2 variant
+stream$.subscribe({
+	next(val) {
+		console.log(val)
+	},
+	error(err) {
+		console.log(err)
+	},
+	complete() {
+		console.log('Complete')
+	},
+})
