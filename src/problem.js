@@ -1,7 +1,7 @@
 import { interval } from 'rxjs'
 import { filter, map, scan, take } from 'rxjs/operators'
 
-const btn = document.getElementById('interval')
+const jsBtn = document.getElementById('interval')
 const rxjsBtn = document.getElementById('rxjs')
 const display = document.querySelector('#problem .result')
 
@@ -15,8 +15,8 @@ const people = [
 	{ name: 'Tanya', age: 70 },
 ]
 
-btn.addEventListener('click', () => {
-	btn.disabled = true
+jsBtn.addEventListener('click', () => {
+	jsBtn.disabled = true
 	let i = 0
 	const canDrive = []
 	const interval = setInterval(() => {
@@ -28,7 +28,7 @@ btn.addEventListener('click', () => {
 			i++
 		} else {
 			clearInterval(interval)
-			btn.disabled = false
+			jsBtn.disabled = false
 		}
 	}, 1000)
 })
@@ -37,16 +37,17 @@ rxjsBtn.addEventListener('click', () => {
 	rxjsBtn.disabled = true
 	interval(1000)
 		.pipe(
-			take(people.length),
-			filter(v => people[v].age >= 18),
-			map(v => people[v].name),
-			scan((acc, v) => acc.concat(v), [])
+			// order matters
+			take(people.length), // how many elements to take, then stop interval
+			filter(v => people[v].age >= 18), // v - value, index
+			map(v => people[v].name), // cast data into a type name
+			scan((acc, v) => acc.concat(v), []) // get the data in the array
 		)
 		.subscribe(
 			res => {
-				display.textContent = res.join(' ')
+				display.textContent = res.join(' ') // join - connect
 			},
 			null,
-			() => (rxjsBtn.disabled = false)
+			() => (rxjsBtn.disabled = false) // unlock button
 		)
 })
