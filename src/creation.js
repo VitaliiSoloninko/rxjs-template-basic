@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs'
 // of - creation streams from any data
 // of - work with numbers and string
 // from - work with array
@@ -13,3 +14,33 @@
 // arr$.subscribe(val => {
 // 	console.log(val)
 // })
+
+// =================== Observable - наблюдаемый
+// Methods
+// next - post new value
+// error - work with method error
+// complete - end of stream
+
+// super small basic stream
+// const stream$ = new Observable(observer => {
+// 	observer.next('First value')
+// 	setTimeout(() => observer.next('After 1000 ms'), 1000)
+// })
+// stream$.subscribe(val => console.log('Val:', val))
+
+const stream$ = new Observable(observer => {
+	observer.next('First value')
+	setTimeout(() => observer.next('After 1000 ms'), 1000)
+
+	setTimeout(() => observer.complete(), 2000)
+
+	setTimeout(() => observer.error('Something went wrong'), 3000)
+
+	setTimeout(() => observer.next('After 4000 ms'), 4000)
+})
+
+stream$.subscribe(
+	val => console.log('Val:', val), // function val work with method next
+	err => console.log(err), // function err work with method error
+	() => console.log('Complete') // function complete - end of stream
+)
