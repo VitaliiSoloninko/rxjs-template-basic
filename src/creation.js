@@ -1,8 +1,9 @@
+// import { timer } from 'rxjs'
+import { range } from 'rxjs'
+
 // of - creation streams from any data
 // of - work with numbers and string
 // from - work with array
-
-import { fromEvent, map } from 'rxjs'
 
 // const stream$ = of('Hello', 'World')
 // stream$.subscribe(val => {
@@ -67,22 +68,33 @@ import { fromEvent, map } from 'rxjs'
 // 	console.log(event)
 // )
 
-// =================== fromEvent - draw
-fromEvent(document.querySelector('canvas'), 'mousemove')
-	.pipe(
-		map(e => ({
-			x: e.offsetX,
-			y: e.offsetY,
-			ctx: e.target.getContext('2d'),
-		}))
-	)
-	.subscribe(pos => {
-		pos.ctx.fillRect(pos.x, pos.y, 2, 2)
-	})
+// =================== fromEvent - draw app
+// fromEvent(document.querySelector('canvas'), 'mousemove')
+// 	.pipe(
+// 		map(e => ({
+// 			x: e.offsetX,
+// 			y: e.offsetY,
+// 			ctx: e.target.getContext('2d'),
+// 		}))
+// 	)
+// 	.subscribe(pos => {
+// 		pos.ctx.fillRect(pos.x, pos.y, 2, 2)
+// 	})
 
-const clear$ = fromEvent(document.getElementById('clear'), 'click')
+// const clear$ = fromEvent(document.getElementById('clear'), 'click')
 
-clear$.subscribe(() => {
-	const canvas = document.querySelector('canvas')
-	canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-})
+// clear$.subscribe(() => {
+// 	const canvas = document.querySelector('canvas')
+// 	canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+// })
+
+// =================== Methods
+// const sub = interval(500).subscribe(v => console.log(v))
+// setTimeout(() => {
+// 	sub.unsubscribe()
+// }, 4000)
+
+// timer(2500).subscribe(v => console.log(v))
+
+// 42 start to 51 - 10 elements
+// range(42, 10).subscribe(v => console.log(v))
